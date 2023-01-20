@@ -1,3 +1,6 @@
+#!/usr/bin/env node
+
+
 // const { argv } = require('yargs');
 // const prompt = argv._[0];
 // const response = await openai.createCompletion({
@@ -12,6 +15,8 @@ const fs = require('fs');
 require('dotenv').config();
 const readline = require('readline');
 const { Configuration, OpenAIApi } = require("openai");
+
+const datapath = __dirname+"/apiKey.json"
 
 const rl = readline.createInterface({
  input: process.stdin,
@@ -90,12 +95,12 @@ function conversationSummary() {
 }
 
 function saveApiKey(key) {
- fs.writeFile("apiKey.json", `{"apiKey":"${key}"}`, function(err) {
+ fs.writeFile(datapath, `{"apiKey":"${key}"}`, function(err) {
   if(err) {return console.log(err);}
  });}
 
 function getSavedApiKey() {
- let data = fs.readFileSync("apiKey.json",function(err,data){console.log(data);return data});
+ let data = fs.readFileSync(datapath,function(err,data){console.log(data);return data});
  return data&&JSON.parse(data)["apiKey"]
 }
 
